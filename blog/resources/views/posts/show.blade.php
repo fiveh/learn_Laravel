@@ -1,5 +1,41 @@
 @extends ('layouts.master')
 
 @section ('content')
-	<h1>A place for SOMETHINg</h1>
+    <div class="col-md-8 blog-main">
+        <h2 class="blog-post-title">{{ $post->title }}</h2>
+        <p class="blog-post-meta">{{ $post->created_at->toDateTimeString() }}</p>
+        <p>{{ $post->body }}</p>
+        <hr>
+
+        <div class="comments">
+            @foreach($post->comments as $comment)
+                <li class="list-group-item">
+                    <strong>
+                        {{ $comment->created_at->diffForHumans() }}: &nbsp;
+                    </strong>
+                    {{ $comment->body }}
+                </li>
+            @endforeach
+        </div>
+
+
+        {{-- Add comment --}}
+        <br>
+        <div class="card-body">
+            <div class="card-block">
+                <form method="POST" action="/posts/{{ $post->id }}/comments">
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <textarea name="body" placeholder="Type here..." class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Add Comment</button>
+                    </div>
+                </form>
+
+                @include('layouts.errors')
+            </div>
+        </div>
+    </div>
 @endsection

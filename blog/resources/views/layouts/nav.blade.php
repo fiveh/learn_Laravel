@@ -1,13 +1,23 @@
-    <header>     
-      <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-          <a href="/" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-            <strong>Main</strong>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+<header class="blog-header">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+            <a href="/posts/create"><button class="btn btn-default">Create</button></a>
+            <a href="#"><button class="btn btn-default">Link</button></a>
+
+
         </div>
-      </div>
-    </header>
+        <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="/">Main</a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <a class="text-muted" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
+                    <circle cx="10.5" cy="10.5" r="7.5"></circle>
+                    <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
+                </svg>
+            </a>
+            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+        </div>
+    </div>
+</header>
