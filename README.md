@@ -2,7 +2,8 @@
 
 ## What's new:
 * Add Posts
-* Add Comments
+* Update Comments
 * Add Exceptions
+* Add Authorization
 ___
-> and etc.
+> fix comments (with user_id).
