@@ -1,3 +1,8 @@
 # learn_Laravel
 
-## fisrt push my Laravel project
+## What's new:
+* Add Posts
+* Add Comments
+* Add Exceptions
+___
+> and etc.
