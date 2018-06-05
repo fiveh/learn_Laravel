@@ -3,6 +3,8 @@
 namespace App;
 
 
+use Couchbase\UserSettings;
+
 class Post extends Model
 {
     public function comments()
@@ -11,8 +13,20 @@ class Post extends Model
     }
 
 
-    public function addComment($body)
+    public function user()
     {
-        $this->comments()->create(compact('body'));
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function addComment()
+    {
+        $this->comments()->create(
+            [
+                'user_id' => auth()->id(),
+                'body' => request('body')
+
+            ]
+        );
     }
 }

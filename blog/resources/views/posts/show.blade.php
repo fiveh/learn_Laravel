@@ -10,9 +10,11 @@
         <div class="comments">
             @foreach($post->comments as $comment)
                 <li class="list-group-item">
-                    <strong>
+                    <i>
                         {{ $comment->created_at->diffForHumans() }}: &nbsp;
-                    </strong>
+                    </i>
+
+                    by: <strong>{{ $comment->user->name }}:</strong>
                     {{ $comment->body }}
                 </li>
             @endforeach
@@ -20,22 +22,24 @@
 
 
         {{-- Add comment --}}
-        <br>
-        <div class="card-body">
-            <div class="card-block">
-                <form method="POST" action="/posts/{{ $post->id }}/comments">
-                    {{ csrf_field() }}
+        @if(Auth::check())
+            <br>
+            <div class="card-body">
+                <div class="card-block">
+                    <form method="POST" action="/posts/{{ $post->id }}/comments">
+                        @csrf
 
-                    <div class="form-group">
-                        <textarea name="body" placeholder="Type here..." class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Add Comment</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <textarea name="body" placeholder="Type here..." class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Comment</button>
+                        </div>
+                    </form>
 
-                @include('layouts.errors')
+                    @include('layouts.errors')
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

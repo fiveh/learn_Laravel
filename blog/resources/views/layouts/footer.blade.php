@@ -1,6 +1,8 @@
 <footer class="blog-footer">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
     <p>
-        <a href="#">Back to top</a>
+        <a href="#"><button class="btn btn-default">Back to top</button></a>
+    </p>
+    <p>
+        About project...2018 &copy;
     </p>
 </footer>
