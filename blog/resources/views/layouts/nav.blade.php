@@ -15,8 +15,8 @@
                 <a class="btn btn-sm btn-outline-secondary" href="#">{{ Auth::user()->name }}</a>&nbsp;
                 <a class="btn btn-sm btn-outline-danger" href="/logout">Logout</a>&nbsp;
             @else
-                <a class="btn btn-sm btn-outline-secondary" href="/login">Sign In</a>&nbsp;
-                <a class="btn btn-sm btn-outline-secondary" href="/register">Register</a>&nbsp;
+                <a class="btn btn-sm btn-outline-success" href="/login">Sign In</a>&nbsp;
+                <a class="btn btn-sm btn-outline-info" href="/register">Register</a>&nbsp;
             @endif
         </div>
     </div>

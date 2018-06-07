@@ -1,9 +1,11 @@
 # learn_Laravel
 
 ## What's new:
-* Add Posts
-* Update Comments
-* Add Exceptions
-* Add Authorization
+* Add filtering
 ___
-> fix comments (with user_id).
+> fix Warning on non-static method.
+
+> fix load data to side bar 
+
+` p.s. Some problem with scope Method `
+
