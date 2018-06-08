@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Mail\WelcomeAgain;
+use PharIo\Manifest\Email;
+
 
 class RegistrationController extends Controller
 {
@@ -31,6 +34,9 @@ class RegistrationController extends Controller
 
 //        sign him in
         auth()->login($user);
+
+//        send Mail
+        \Mail::to($user)->send(new WelcomeAgain($user));
 
 //        redirect to home page
         return redirect()->home();
