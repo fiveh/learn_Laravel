@@ -27,7 +27,7 @@ class SessionController extends Controller
                     'message' => 'Please check you email and pass! And try again.'
                 ]);
         }
-            return redirect()->home();
+            return redirect()->home()->with('message', 'U are logIn!');
     }
 
 

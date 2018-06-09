@@ -16,6 +16,5 @@ class CommentsController extends Controller
             ]);
         $post->addComment();
 
-        return back();
     }
 }

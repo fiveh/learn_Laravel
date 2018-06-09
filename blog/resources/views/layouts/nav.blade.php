@@ -2,8 +2,11 @@
     <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
             @if(Auth::check())
-                <a href="/posts/create">
+                <a href="/posts/create/">
                     <button class="btn btn-default">Create</button>
+                </a>
+                <a href="/posts/dashboard/{{ Auth::user()->id }}">
+                    <button class="btn btn-default">MyPosts</button>
                 </a>
             @endif
         </div>
