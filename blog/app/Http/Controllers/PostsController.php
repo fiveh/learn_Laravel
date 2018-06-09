@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Post;
@@ -18,7 +19,9 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::query()->latest()->filter(request(['month', 'year']))->get();
+//        $posts = Post::query()->latest()->filter(request(['month', 'year']))->get();
+        $posts = Post::query()->latest()->paginate(3);
+//        $posts = Post::query()->paginate(2);
 
         return view('posts.index', compact('posts'));
     }
@@ -36,21 +39,37 @@ class PostsController extends Controller
     }
 
 
-    public function store()
+    public function store(Request $request)
     {
         $this->validate(request(),
             [
-                'title' => 'required',
-                'body' => 'required',
+                'title' => 'required|min:2',
+                'body' => 'required|min:4',
             ]);
 
-//        create new post by User class
-        auth()->user()->publish(
-            new Post(request(['title', 'body']))
-        );
+        $post = new Post();
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->user_id = \Auth::user()->id;
+
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/');
+            $image->move($location, $filename);
+
+            $post->image = $filename;
+        }
+
+        $post->save();
+//create new post by User class
+//        auth()->user()->publish(
+//            new Post(request(['title', 'body']))
+//        );
 
 //        And the redirect to the home page
-        return redirect('/');
+        return redirect('/')->with('message', 'Good job bro');
     }
 
     public function dashboard()
@@ -71,7 +90,6 @@ class PostsController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $this->validate(request(),
             [
                 'title' => 'required',
@@ -81,10 +99,7 @@ class PostsController extends Controller
 
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-
         $post->save();
-
-//        \Session::flash('message', 'Success!!!');
 
         return redirect('/')->with('message', 'Update success!');
     }
@@ -92,13 +107,12 @@ class PostsController extends Controller
 
     public function destroy($id)
     {
-            $post = Post::query()->find($id);
-//            dd($id);
-            $post->delete();
+        $post = Post::query()->find($id);
+        $post->delete();
 
-            return redirect('/')->with('message', 'Delete success!');
+        return redirect()->home()->with('message', 'Delete success!');
     }
-    
+
 
 }
 

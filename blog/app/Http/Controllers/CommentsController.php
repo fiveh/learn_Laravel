@@ -15,6 +15,7 @@ class CommentsController extends Controller
                 'body' => 'required|min:2'
             ]);
         $post->addComment();
+        return back();
 
     }
 }

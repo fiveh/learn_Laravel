@@ -19,7 +19,7 @@
                         <button class="btn btn-outline-warning btn-block">Edit</button>
                     </form>
 
-                    {!! Form::open(['route' => ['destroy', $post->id], 'method' => 'DELETE']) !!}
+                    {!! Form::open(['route' => ['post-destroy', $post->id], 'method' => 'DELETE']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger btn-block']) !!}
                     {!! Form::close() !!}
                     <hr>

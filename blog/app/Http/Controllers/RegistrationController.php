@@ -39,6 +39,6 @@ class RegistrationController extends Controller
         \Mail::to($user)->send(new WelcomeAgain($user));
 
 //        redirect to home page
-        return redirect()->home();
+        return redirect()->route('post-create')->with('message', 'U are Registered, Now send first Post!');
     }
 }
