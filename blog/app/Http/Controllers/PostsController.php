@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Post;
 use Carbon\Carbon;
+use Storage;
 
 class PostsController extends Controller
 {
@@ -21,7 +22,6 @@ class PostsController extends Controller
     {
 //        $posts = Post::query()->latest()->filter(request(['month', 'year']))->get();
         $posts = Post::query()->latest()->paginate(3);
-//        $posts = Post::query()->paginate(2);
 
         return view('posts.index', compact('posts'));
     }
@@ -94,11 +94,24 @@ class PostsController extends Controller
             [
                 'title' => 'required',
                 'body' => 'required',
+                'featured_image' => 'image'
             ]);
         $post = Post::query()->find($id);
 
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+
+        if ($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/');
+            $image->move($location, $filename);
+
+            $oldFilename = $post->image;
+            $post->image = $filename;
+            Storage::delete($oldFilename);
+        }
+
         $post->save();
 
         return redirect('/')->with('message', 'Update success!');
@@ -108,6 +121,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::query()->find($id);
+        Storage::delete($post->image);
         $post->delete();
 
         return redirect()->home()->with('message', 'Delete success!');

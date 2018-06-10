@@ -4,7 +4,7 @@
     <div class="col-md-8 blog-main">
         <h2 class="blog-post-title">{{ $post->title }}</h2>
         <p class="blog-post-meta">{{ $post->created_at->toDateTimeString() }}</p>
-        <img src="{{ asset('images/' . $post->image) }}" alt="{{ $post->image }}">
+        <img style="max-width: 400px; max-height: 400px;" src="{{ asset('images/' . $post->image) }}" alt="{{ $post->image }}">
         <p>{{ $post->body }}</p>
         <hr>
 
