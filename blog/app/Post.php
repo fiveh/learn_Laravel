@@ -7,6 +7,12 @@ use Couchbase\UserSettings;
 
 class Post extends Model
 {
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -24,10 +30,22 @@ class Post extends Model
         $this->comments()->create(
             [
                 'user_id' => auth()->id(),
-                'body' => request('body')
-
+                'body' => request('body'),
+                'post_id' => $this->id
             ]
         );
+    }
+
+
+    public function like()
+    {
+        $this->likescount = $this->increment('likescount');
+    }
+
+
+    public function dislike()
+    {
+        $this->likescount = $this->decrement('likescount');
     }
 
 
@@ -39,7 +57,7 @@ class Post extends Model
             && array_key_exists('month', $filters)
             && array_key_exists('year', $filters)
             && count(array_intersect($filters, $months)) > 0
-            && is_int((int) $filters['year'])){
+            && is_int((int)$filters['year'])) {
             $query->whereMonth('created_at', Carbon::parse($filters['month'])->month);
             $query->whereYear('created_at', $filters['year']);
         }

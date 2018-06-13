@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>Lar Andy</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -20,7 +20,7 @@
 
 @include ('layouts.nav')
 
-    @if($flash = session('message'));
+    @if($flash = session('message'))
         <div class="alert alert-success" role="alert">
             {{ $flash }}
         </div>

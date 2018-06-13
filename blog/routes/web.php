@@ -13,6 +13,8 @@ Route::delete('/posts/destroy/{id}', 'PostsController@destroy')->name('post-dest
 
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
+Route::post('/posts/{post}/likes', 'LikesController@store');
+
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');
 

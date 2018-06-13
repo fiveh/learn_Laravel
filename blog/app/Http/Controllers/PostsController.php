@@ -52,6 +52,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->user_id = \Auth::user()->id;
+        $post->likescount = 0;
 
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');

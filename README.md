@@ -1,8 +1,7 @@
 # learn_Laravel
 
 ## What's new:
-* Update and Edit image
-* fix when 0 results Dashboard 
+* Add like/dislike
 
 ` p.s. Some problem with scope Method `
 

@@ -4,9 +4,31 @@
     <div class="col-md-8 blog-main">
         <h2 class="blog-post-title">{{ $post->title }}</h2>
         <p class="blog-post-meta">{{ $post->created_at->toDateTimeString() }}</p>
-        <img style="max-width: 400px; max-height: 400px;" src="{{ asset('images/' . $post->image) }}" alt="{{ $post->image }}">
+        <img style="max-width: 400px; max-height: 400px;" src="{{ asset('images/' . $post->image) }}"
+             alt="{{ $post->image }}">
         <p>{{ $post->body }}</p>
-        <hr>
+        <br>
+
+        {{--likes--}}
+        @if(Auth::check())
+            <div class="likes">
+                <a href="">
+
+                </a>
+                <form action="/posts/{{ $post->id }}/likes" method="POST">
+                    @csrf
+
+                    <button type="submit" value="1" class="btn btn-outline-info">Like</button>
+                    <button class="btn btn-primary">{{ $post->likescount }}</button>
+                </form>
+
+            </div>
+        @else
+            <div class="likes">
+                <button class="btn btn-outline-info">{{ $post->likescount }}</button>
+            </div>
+            <hr>
+        @endif
 
         <div class="comments">
             @foreach($post->comments as $comment)
@@ -20,7 +42,6 @@
                 </li>
             @endforeach
         </div>
-
 
         {{-- Add comment --}}
         @if(Auth::check())

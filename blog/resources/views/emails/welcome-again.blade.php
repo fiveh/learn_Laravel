@@ -1,6 +1,6 @@
 @component('mail::message')
-#Intro
-Hello {{ $user->name }}!
+#Introduction
+Hello, <strong> {{ $user->name }} </strong> !
 
 
     # Rules
@@ -10,7 +10,7 @@ Hello {{ $user->name }}!
 
 The body of your message.
 
-@component('mail::button', ['url' => 'localhost'])
+@component('mail::button', ['url' => 'http://127.0.0.1:8000/'])
 go to local
 @endcomponent
 
