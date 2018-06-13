@@ -30,5 +30,6 @@
         @else
             <h1>No your Posts!<br>Go create :)</h1>
         @endif
+        <h1>Your Score: {{Auth::user()->score}}</h1>
     </div>
 @endsection

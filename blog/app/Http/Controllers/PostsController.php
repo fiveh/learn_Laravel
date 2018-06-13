@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\User;
 use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use function Sodium\increment;
 use Storage;
 
 class PostsController extends Controller
@@ -48,11 +51,16 @@ class PostsController extends Controller
             ]);
 
         $post = new Post();
+        $user = \Auth::user();
 
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->user_id = \Auth::user()->id;
+        $post->user_id = $user->id;
         $post->likescount = 0;
+//        score
+        $user->up($user->id);
+        $user->up($user->id);
+
 
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
@@ -102,7 +110,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->body = $request->input('body');
 
-        if ($request->hasFile('featured_image')){
+        if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('images/');
@@ -123,9 +131,17 @@ class PostsController extends Controller
     {
         $post = Post::query()->find($id);
         Storage::delete($post->image);
+//  del all comments
+        DB::table('comments')
+            ->where('post_id', $post->id)
+            ->delete();
         $post->delete();
+//        score
+        $user = \Auth::user();
+        $user->down($user->id);
+        $user->down($user->id);
 
-        return redirect()->home()->with('message', 'Delete success!');
+        return back()->with('message', 'Delete success!');
     }
 
 

@@ -15,7 +15,8 @@
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
             @if(Auth::check())
-                <a class="btn btn-sm btn-outline-secondary" href="#">{{ Auth::user()->name }}</a>&nbsp;
+                <a class="btn btn-sm btn-outline-secondary" href="#">{{ Auth::user()->name}}</a>&nbsp;
+                <a class="btn btn-sm btn-outline-info" href="#">$: {{ Auth::user()->score}}</a>&nbsp;
                 <a class="btn btn-sm btn-outline-danger" href="/logout">Logout</a>&nbsp;
             @else
                 <a class="btn btn-sm btn-outline-success" href="/login">Sign In</a>&nbsp;

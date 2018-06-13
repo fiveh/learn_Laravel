@@ -4,32 +4,33 @@
     <div class="col-md-8 blog-main">
         <h2 class="blog-post-title">{{ $post->title }}</h2>
         <p class="blog-post-meta">{{ $post->created_at->toDateTimeString() }}</p>
-        <img style="max-width: 400px; max-height: 400px;" src="{{ asset('images/' . $post->image) }}"
-             alt="{{ $post->image }}">
+        @if (isset($post->image))
+            <img style="max-width: 400px; max-height: 400px;" src="{{ asset('images/' . $post->image) }}"
+                 alt="{{ $post->image }}">
+        @endif
         <p>{{ $post->body }}</p>
-        <br>
 
         {{--likes--}}
-        @if(Auth::check())
-            <div class="likes">
-                <a href="">
+        @if (isset($post->image))
+            @if(Auth::check())
+                <div class="likes">
+                    <form action="/posts/{{ $post->id }}/likes" method="POST">
+                        @csrf
 
-                </a>
-                <form action="/posts/{{ $post->id }}/likes" method="POST">
-                    @csrf
-
-                    <button type="submit" value="1" class="btn btn-outline-info">Like</button>
-                    <button class="btn btn-primary">{{ $post->likescount }}</button>
-                </form>
-
-            </div>
-        @else
-            <div class="likes">
-                <button class="btn btn-outline-info">{{ $post->likescount }}</button>
-            </div>
-            <hr>
+                        <button type="submit" value="1" class="btn btn-outline-info">Like</button>
+                        <div class="btn btn-primary">{{ $post->likescount }}</div>
+                    </form>
+                </div>
+                <br>
+            @else
+                <div class="likes">
+                    <button class="btn btn-outline-info">{{ $post->likescount }}</button>
+                </div>
+                <br>
+            @endif
         @endif
 
+        {{--comments--}}
         <div class="comments">
             @foreach($post->comments as $comment)
                 <li class="list-group-item">
@@ -45,7 +46,6 @@
 
         {{-- Add comment --}}
         @if(Auth::check())
-            <br>
             <div class="card-body">
                 <div class="card-block">
                     <form method="POST" action="/posts/{{ $post->id }}/comments">

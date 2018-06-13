@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Post;
 use App\Like;
+use App\User;
 use function Sodium\increment;
 use Symfony\Component\Console\Helper\Table;
 
@@ -29,6 +30,10 @@ class LikesController extends Controller
             $like->like = 1;
             $like->save();
             $post->like();
+//up score
+            DB::table('users')
+                ->where('id', $post->user_id)
+                ->increment('score');
 
             return back();
         } else {
@@ -37,10 +42,13 @@ class LikesController extends Controller
                 ->where('post_id', $post->id)
                 ->where('user_id', \Auth::user()->id)
                 ->delete();
-
             $post->dislike();
+//down score
+            DB::table('users')
+                ->where('id', $post->user_id)
+                ->decrement('score');
 
-            return back()->with('message', 'Dislike ');
+            return back();
         }
     }
 }

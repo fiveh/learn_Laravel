@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\DB;
 use App\Comment;
 
 class CommentsController extends Controller
@@ -15,7 +16,7 @@ class CommentsController extends Controller
                 'body' => 'required|min:2'
             ]);
         $post->addComment();
-        return back();
 
+        return back();
     }
 }
