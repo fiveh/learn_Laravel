@@ -10,7 +10,7 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable.A
      *
      * @var array
      */
@@ -53,6 +53,8 @@ class User extends Authenticatable
 
     public function down($id)
     {
-        User::query()->find($id)->score = $this->decrement('score');
+        if (User::query()->find($id)->score > 0) {
+            User::query()->find($id)->score = $this->decrement('score');
+        }
     }
 }

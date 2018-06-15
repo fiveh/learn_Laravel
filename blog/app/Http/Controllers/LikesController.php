@@ -15,14 +15,15 @@ class LikesController extends Controller
 {
     public function store(Post $post)
     {
-        $sel = DB::table('likes')
+        $findLike = DB::table('likes')
             ->select('like')
             ->where('post_id', $post->id)
             ->where('user_id', \Auth::user()->id)
-            ->get();
+            ->first();
 
-        $newsel = $sel->toArray();
-        if (!isset($newsel[0])) {
+        $score = DB::table('users')->where('id', $post->user_id);
+
+        if (!isset($findLike)) {
             $like = new Like();
 
             $like->user_id = \Auth::user()->id;
@@ -31,9 +32,7 @@ class LikesController extends Controller
             $like->save();
             $post->like();
 //up score
-            DB::table('users')
-                ->where('id', $post->user_id)
-                ->increment('score');
+            $score->increment('score');
 
             return back();
         } else {
@@ -43,10 +42,10 @@ class LikesController extends Controller
                 ->where('user_id', \Auth::user()->id)
                 ->delete();
             $post->dislike();
-//down score
-            DB::table('users')
-                ->where('id', $post->user_id)
-                ->decrement('score');
+//down score if > 0
+            if ( $score->select('score')->first()->score > 0) {
+                $score->decrement('score');
+            }
 
             return back();
         }

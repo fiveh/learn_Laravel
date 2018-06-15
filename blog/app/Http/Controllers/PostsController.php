@@ -23,7 +23,6 @@ class PostsController extends Controller
 
     public function index()
     {
-//        $posts = Post::query()->latest()->filter(request(['month', 'year']))->get();
         $posts = Post::query()->latest()->paginate(3);
 
         return view('posts.index', compact('posts'));
@@ -70,16 +69,11 @@ class PostsController extends Controller
 
             $post->image = $filename;
         }
-
         $post->save();
-//create new post by User class
-//        auth()->user()->publish(
-//            new Post(request(['title', 'body']))
-//        );
 
-//        And the redirect to the home page
         return redirect('/')->with('message', 'Good job bro');
     }
+
 
     public function dashboard()
     {
@@ -132,9 +126,9 @@ class PostsController extends Controller
         $post = Post::query()->find($id);
         Storage::delete($post->image);
 //  del all comments
-        DB::table('comments')
-            ->where('post_id', $post->id)
-            ->delete();
+        $post = Post::find($id);
+        $post->comments()->delete();
+        $post->likes()->delete();
         $post->delete();
 //        score
         $user = \Auth::user();
