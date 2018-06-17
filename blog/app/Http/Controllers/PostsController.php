@@ -23,7 +23,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::query()->latest()->paginate(3);
+        $posts = Post::query()->latest()->filter(request(['month', 'year']))->paginate(3);
 
         return view('posts.index', compact('posts'));
     }

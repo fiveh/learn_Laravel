@@ -6,20 +6,20 @@
         </p>
     </div>
 
-        {{--<div class="p-3">--}}
-            {{--<h4 class="font-italic">Search by:</h4>--}}
-            {{--<ol class="list-unstyled mb-0">--}}
+        <div class="p-3">
+            <h4 class="font-italic">Search by:</h4>
+            <ol class="list-unstyled mb-0">
 
-                {{--@foreach($archives as $stats)--}}
-                    {{--<li>--}}
-                        {{--<a href="/?month={{ $stats['month'] }}&year={{ $stats['year'] }}">--}}
-                            {{--{{ $stats['month'].' '.$stats['year'] }}--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--@endforeach--}}
+                @foreach($archives as $stats)
+                    <li>
+                        <a href="/?month={{ $stats['month'] }}&year={{ $stats['year'] }}">
+                            {{ $stats['month'].' '.$stats['year'] }}
+                        </a>
+                    </li>
+                @endforeach
 
-            {{--</ol>--}}
-        {{--</div>--}}
+            </ol>
+        </div>
 
     <div class="p-3">
         <h4 class="font-italic">Elsewhere</h4>

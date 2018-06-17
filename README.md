@@ -1,9 +1,8 @@
 # learn_Laravel
 
 ## What's new:
-* refactor Like/Dislike
-* refactor Score
-* refactor cascade deleting
+* add Basic test
+* add/fix sorting posts
 
 ` p.s. Some problem with scope Method `
 

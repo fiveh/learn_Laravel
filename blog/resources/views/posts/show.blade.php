@@ -17,7 +17,7 @@
                     <form action="/posts/{{ $post->id }}/likes" method="POST">
                         @csrf
 
-                        <button type="submit" value="1" class="btn btn-outline-info">Like</button>
+                        <button type="submit" value="1" class="btn btn-outline-info">&#10084;</button>
                         <div class="btn btn-primary">{{ $post->likescount }}</div>
                     </form>
                 </div>

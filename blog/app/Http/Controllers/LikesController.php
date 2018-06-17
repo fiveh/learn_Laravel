@@ -25,7 +25,6 @@ class LikesController extends Controller
 
         if (!isset($findLike)) {
             $like = new Like();
-
             $like->user_id = \Auth::user()->id;
             $like->post_id = $post->id;
             $like->like = 1;
